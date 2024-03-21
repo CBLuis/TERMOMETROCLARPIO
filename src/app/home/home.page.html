@@ -1,20 +1,75 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <div style="display: flex; align-items: center;">
+      <!-- Agregar un icono del clima a la izquierda del título -->
+      <ion-icon name="partly-sunny-outline" slot="start"></ion-icon>
+      <!-- Aplicar estilos de la fuente Roboto al título -->
+      <ion-title style="font-family: 'Roboto', sans-serif; margin-left: 5px;">CLARPIO THERMOMETER</ion-title>
+    </div>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+<ion-content class="ion-padding">
+  <div class="thermometer">
+    <div class="mercury" style="--temperature: {{ temperature }}"></div>
+    <div class="temperature">{{ temperature }}°C</div>
   </div>
+  <ion-range min="0" max="100" [(ngModel)]="temperature" color="danger" snaps="true" pin="true" (ionChange)="updateTemperature($event)"></ion-range>
+
+  <!-- Campo de entrada de texto para ingresar la temperatura -->
+  <ion-item>
+    <ion-label position="floating">Ingrese la temperatura:</ion-label>
+    <ion-input type="number" [(ngModel)]="inputTemperature"></ion-input>
+    <ion-button (click)="setTemperature()">Cambiar</ion-button>
+  </ion-item>
+
+  <div class="temperature-scale">
+    <div>
+
+      <ion-icon class="{{ getTemperatureScaleTextColor() }}" name="snow"></ion-icon>
+      Frío: 0°C - 10°C <span class="{{ getTemperatureScaleTextColor() }} description">(Abrígate bien)</span>
+    </div>
+    <div>
+      <ion-icon class="{{ getTemperatureScaleTextColor() }}" name="sunny"></ion-icon>
+      Tibio: 11°C - 30°C <span class="{{ getTemperatureScaleTextColor() }} description">(Clima agradable)</span>
+    </div>
+    <div>
+      <ion-icon class="{{ getTemperatureScaleTextColor() }}" name="flame"></ion-icon>
+      Hot: 30°C - 50°C <span class="{{ getTemperatureScaleTextColor() }} description">(Busca la sombra)</span>
+    </div>
+    <div>
+      <ion-icon class="{{ getTemperatureScaleTextColor() }}" name="flame"></ion-icon>
+     Super Hot: 50°C - 70°C <span class="{{ getTemperatureScaleTextColor() }} description">(Hidrátate crack )</span>
+    </div>
+    <div>
+      <ion-icon class="{{ getTemperatureScaleTextColor() }}" name="flame"></ion-icon>
+     Mega Hot: 70°C - 90°C <span class="{{ getTemperatureScaleTextColor() }} description">(Me muero de calor )</span>
+    </div>
+    <div>
+      <ion-icon class="{{ getTemperatureScaleTextColor() }}" name="flame"></ion-icon>
+      Mi amor la Camila Idrovo: 100°C <span class="{{ getTemperatureScaleTextColor() }} description">(Me muero por ella )</span>
+    </div>
+
+
+  </div>
+  
+  <div class="credits-table">
+    <table>
+      <tr>
+        <td><strong>COMPANIA:</strong></td>
+        <td>INDUSTRIAS CLARPIO</td>
+      </tr>
+      <tr>
+        <td><strong>DESARROLLADOR:</strong></td>
+        <td>CARLOS CARPIO</td>
+      </tr>
+      <tr>
+        <td><strong>VERSIÓN:</strong></td>
+        <td>0.0.0</td>
+      </tr>
+      <!-- Agrega más filas según sea necesario para otros créditos -->
+    </table>
+  </div>
+
 </ion-content>
